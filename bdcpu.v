@@ -270,10 +270,6 @@ module bdcpu_control (
 		endcase
 	end
 	
-	always @(posedge clock) begin
-		
-	end
-	
 	always @(negedge clock or negedge reset) begin
 		if (~reset)
 			step <= 1'b0;
@@ -296,8 +292,7 @@ module testbench ();
 	reg reset = 1'b0;
 	wire cpu_mem_output, cpu_mem_write;
 	wire [3:0] cpu_mem_address;
-	wire [7:0] out;
-	inout [7:0] mem_data;
+	wire [7:0] out, mem_data;
 	bdcpu cpu (clock, reset, out, cpu_mem_output, cpu_mem_write, cpu_mem_address, mem_data);
 	
 	reg [7:0] mem [16:0];
