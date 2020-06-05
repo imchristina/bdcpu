@@ -61,14 +61,14 @@ module bdcpu_program_counter (
 );
 	reg [3:0] value = 1'b0;
 	
-	assign bus[3:0] = output_enable ? value : {8{1'bz}};
+	assign bus[3:0] = output_enable ? value : {4{1'bz}};
 	
 	always @(posedge clock or negedge reset) begin
 		if (~reset)
 			value = 1'b0;
 		else begin
 			if (increment_enable)
-				value <= value + 1;
+				value <= value + 1'b1;
 			if (write_enable)
 				value <= bus[3:0];
 		end
@@ -259,7 +259,7 @@ module bdcpu_control (
 						reg_a_write_enable = 1'b1;
 						control_step_reset = 1'b1;
 					end
-					4'b0010: begin // SUB 4
+					4'b0011: begin // SUB 4
 						alu_output_enable = 1'b1;
 						reg_a_write_enable = 1'b1;
 						alu_subtract = 1'b1;
